@@ -29,7 +29,7 @@ const loadAllPets = async () => {
                     <button onclick="addLikedPhoto('${pet.petId}', '${pet.image}')" class="border rounded-lg px-2 py-0">
                         <i class="fa-regular fa-thumbs-up"></i>
                     </button>
-                    <button class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Adopt</button>
+                    <button id="adoptBTN" onclick="myModal.showModal(); setInt(); startCountdown()" class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Adopt</button>
                     <button onclick="showModal()" class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Details</button>
                 </div>
             </div>
@@ -355,12 +355,28 @@ its layout. The point of using Lorem Ipsum is that it has a.
 
 
 
+// // // auto click after three seconds on modal close button
+const setInt = () => {
+    setTimeout(() => {
+        document.getElementById("closeBTN").click();
+    }, 4000);
+}
+
+// // countdown timer for three seconds
+function startCountdown() {
+    let countdownTime = 3;
+  const countdownElement = document.getElementById("countdown");
+    
+  const interval = setInterval(() => {
+    countdownElement.textContent = countdownTime;
+    if (countdownTime <= 0) {
+      clearInterval(interval);
+      countdownElement.textContent = "";
+    }
+    countdownTime--;
+  }, 1000); 
+}
 
 
 
-
-
-
-// Load all pets when the page is ready
 loadAllPets();
-// fetchCategories();
