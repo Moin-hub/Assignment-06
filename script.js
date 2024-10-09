@@ -29,8 +29,8 @@ const loadAllPets = async () => {
                     <button onclick="addLikedPhoto('${pet.petId}', '${pet.image}')" class="border rounded-lg px-2 py-0">
                         <i class="fa-regular fa-thumbs-up"></i>
                     </button>
-                    <button id="adoptBTN" onclick="myModal.showModal(); setInt(); startCountdown()" class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Adopt</button>
-                    <button onclick="showModal()" class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Details</button>
+                    <button id="adoptBTN${pet.petId}" onclick="myModal.showModal(); setInt(); startCountdown(); adoptDisable(${pet.petId})" class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Adopt</button>
+                    <button onclick="my_modal_1.showModal()" class="border rounded-lg px-3 py-0 text-[#0E7A81] font-bold">Details</button>
                 </div>
             </div>
         `;
@@ -39,11 +39,10 @@ const loadAllPets = async () => {
     });
 };
 
-// modal is here
-const showModal = () => {
-    
+// adopt btn
+const adoptDisable = (id) => {
+    document.getElementById(`adoptBTN"${id}"`).innerText = "Adopted";
 }
-
 
 
 // Updated addLikedPhoto function
@@ -63,6 +62,20 @@ const addLikedPhoto = async (petId, image) => {
     likedPets.appendChild(div);
 };
 
+
+const fetchPrice = async () => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`);
+    const data = await res.json();
+    const allPrices = data.pets;
+    // console.log(allPrices);
+
+    // allPrices.forEach((price) => {
+    //     console.log(price.price);
+    // })
+   
+};
+
+fetchPrice();
 
 // Fetch All Pet Categories
 const fetchCategories = async () => {
@@ -116,6 +129,7 @@ its layout. The point of using Lorem Ipsum is that it has a.
             const div = document.createElement("div");
             
             div.innerHTML = `
+
             <div class="border rounded-lg flex flex-col space-y-3 p-4">
             <div>
             <img class="rounded-lg w-full bg-cover" src="${pet.image}" alt="">
@@ -185,6 +199,7 @@ its layout. The point of using Lorem Ipsum is that it has a.
             const div = document.createElement("div");
             
             div.innerHTML = `
+
             <div class="border rounded-lg flex flex-col space-y-3 p-4">
             <div>
             <img class="rounded-lg w-full bg-cover" src="${pet.image}" alt="">
@@ -351,8 +366,16 @@ its layout. The point of using Lorem Ipsum is that it has a.
 
     
 }
+//////////////////////////////////////////////////////
 
+ function showSpinner() {
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'flex';
 
+            setTimeout(() => {
+                spinner.style.display = 'none'; 
+            }, 2000);
+        }
 
 
 // // // auto click after three seconds on modal close button
